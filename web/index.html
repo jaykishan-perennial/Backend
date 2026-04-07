@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>License Manager – Admin</title>
+    <link rel="stylesheet" href="/web/style.css">
+</head>
+<body>
+
+<!-- Login Screen -->
+<div id="login-screen" class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <div class="login-icon">🔑</div>
+            <h1>License Manager</h1>
+            <p>Admin Dashboard</p>
+        </div>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="login-email">Email</label>
+                <input type="email" id="login-email" placeholder="admin@example.com" required>
+            </div>
+            <div class="form-group">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full" id="login-btn">Sign In</button>
+            <p id="login-error" class="error-text hidden"></p>
+        </form>
+    </div>
+</div>
+
+<!-- Main App -->
+<div id="app" class="app-container hidden">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <span class="sidebar-logo">🔑</span>
+            <h2>License Mgr</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active" data-page="dashboard">
+                <span class="nav-icon">📊</span> Dashboard
+            </a>
+            <a href="#" class="nav-item" data-page="customers">
+                <span class="nav-icon">👥</span> Customers
+            </a>
+            <a href="#" class="nav-item" data-page="packs">
+                <span class="nav-icon">📦</span> Subscription Packs
+            </a>
+            <a href="#" class="nav-item" data-page="subscriptions">
+                <span class="nav-icon">📋</span> Subscriptions
+            </a>
+            <a href="#" class="nav-item" data-page="audit">
+                <span class="nav-icon">📝</span> Audit Logs
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <button id="logout-btn" class="btn btn-outline btn-full">Logout</button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Page -->
+        <div id="page-dashboard" class="page active">
+            <div class="page-header">
+                <h1>Dashboard</h1>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="stat-customers">-</div>
+                    <div class="stat-label">Total Customers</div>
+                </div>
+                <div class="stat-card accent">
+                    <div class="stat-value" id="stat-active">-</div>
+                    <div class="stat-label">Active Subscriptions</div>
+                </div>
+                <div class="stat-card warn">
+                    <div class="stat-value" id="stat-pending">-</div>
+                    <div class="stat-label">Pending Requests</div>
+                </div>
+                <div class="stat-card success">
+                    <div class="stat-value" id="stat-revenue">-</div>
+                    <div class="stat-label">Total Revenue</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header"><h2>Recent Activities</h2></div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead><tr><th>ID</th><th>Customer</th><th>Pack</th><th>Status</th><th>Date</th></tr></thead>
+                        <tbody id="activities-table"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customers Page -->
+        <div id="page-customers" class="page">
+            <div class="page-header">
+                <h1>Customers</h1>
+                <div class="page-actions">
+                    <input type="text" id="customer-search" placeholder="Search customers..." class="search-input">
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <table class="table">
+                        <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Created</th><th>Actions</th></tr></thead>
+                        <tbody id="customers-table"></tbody>
+                    </table>
+                    <div class="pagination" id="customers-pagination"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Subscription Packs Page -->
+        <div id="page-packs" class="page">
+            <div class="page-header">
+                <h1>Subscription Packs</h1>
+                <div class="page-actions">
+                    <button class="btn btn-primary" id="add-pack-btn">+ Add Pack</button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <table class="table">
+                        <thead><tr><th>ID</th><th>Name</th><th>Description</th><th>SKU</th><th>Price</th><th>Validity</th><th>Actions</th></tr></thead>
+                        <tbody id="packs-table"></tbody>
+                    </table>
+                    <div class="pagination" id="packs-pagination"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Subscriptions Page -->
+        <div id="page-subscriptions" class="page">
+            <div class="page-header">
+                <h1>Subscriptions</h1>
+                <div class="page-actions">
+                    <select id="sub-status-filter" class="search-input">
+                        <option value="">All Statuses</option>
+                        <option value="requested">Requested</option>
+                        <option value="approved">Approved</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                        <option value="expired">Expired</option>
+                    </select>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <table class="table">
+                        <thead><tr><th>ID</th><th>Customer</th><th>Pack</th><th>Status</th><th>Assigned</th><th>Expires</th><th>Actions</th></tr></thead>
+                        <tbody id="subscriptions-table"></tbody>
+                    </table>
+                    <div class="pagination" id="subscriptions-pagination"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Audit Logs Page -->
+        <div id="page-audit" class="page">
+            <div class="page-header">
+                <h1>Audit Logs</h1>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <table class="table">
+                        <thead><tr><th>ID</th><th>Action</th><th>Entity</th><th>Entity ID</th><th>Details</th><th>IP</th><th>Date</th></tr></thead>
+                        <tbody id="audit-table"></tbody>
+                    </table>
+                    <div class="pagination" id="audit-pagination"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Modal Overlay -->
+<div id="modal-overlay" class="modal-overlay hidden">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 id="modal-title">Modal</h2>
+            <button class="modal-close" id="modal-close">&times;</button>
+        </div>
+        <div class="modal-body" id="modal-body"></div>
+        <div class="modal-footer" id="modal-footer"></div>
+    </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="toast hidden"></div>
+
+<script src="/web/app.js"></script>
+</body>
+</html>
